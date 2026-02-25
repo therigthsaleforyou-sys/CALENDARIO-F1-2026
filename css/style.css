@@ -80,18 +80,17 @@ nav a.active {
   margin: 12px 0 6px;
 }
 
-/* COUNTDOWN — CANÓNICO, VISÍVEL, FORTE */
+/* COUNTDOWN — AJUSTADO (MENOR, CANÓNICO) */
 #hero-countdown {
-  margin-top: 14px;
-  font-size: clamp(28px, 6vw, 44px);
-  font-weight: 900;
+  margin-top: 12px;
+  font-size: clamp(20px, 4.8vw, 32px);
+  font-weight: 800;
   color: #ff0000;
   text-align: center;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.8px;
   text-shadow:
-    0 0 4px rgba(0, 0, 0, 1),
-    0 0 10px rgba(0, 0, 0, 0.95),
-    0 0 18px rgba(0, 0, 0, 0.9);
+    0 0 3px rgba(0, 0, 0, 1),
+    0 0 8px rgba(0, 0, 0, 0.9);
 }
 
 /* RACE CARDS */
