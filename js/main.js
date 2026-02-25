@@ -2,20 +2,22 @@ const heroTitle = document.getElementById("hero-title");
 const heroCountdown = document.getElementById("hero-countdown");
 const raceCardsContainer = document.getElementById("race-cards");
 
-const now = new Date().getTime();
+/* ========= PARSER DE DATA PT ========= */
+function parsePTDate(dateStr) {
+  // Esperado: "DD/MM/YYYY HH:MM"
+  const [datePart, timePart] = dateStr.split(" ");
+  const [day, month, year] = datePart.split("/").map(Number);
+  const [hour, minute] = timePart.split(":").map(Number);
 
-// Próxima corrida
-const nextRace = calendar2026.find(race => new Date(race.date).getTime() > now);
-
-if (nextRace) {
-  heroTitle.textContent = nextRace.name;
+  return new Date(year, month - 1, day, hour, minute).getTime();
 }
 
-function updateCountdown(element, targetDate) {
-  const now = new Date().getTime();
-  const distance = targetDate - now;
+/* ========= COUNTDOWN ========= */
+function updateCountdown(element, targetTime) {
+  const now = Date.now();
+  const distance = targetTime - now;
 
-  if (distance <= 0) {
+  if (distance <= 0 || isNaN(distance)) {
     element.textContent = "RACE DAY";
     return;
   }
@@ -28,9 +30,21 @@ function updateCountdown(element, targetDate) {
   element.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
 
-// Criar cards
+/* ========= PRÓXIMA CORRIDA ========= */
+const now = Date.now();
+
+const nextRace = calendar2026.find(race => {
+  const raceTime = parsePTDate(race.date);
+  return raceTime > now;
+});
+
+if (nextRace) {
+  heroTitle.textContent = nextRace.name;
+}
+
+/* ========= CARDS ========= */
 calendar2026.forEach(race => {
-  const raceDate = new Date(race.date).getTime();
+  const raceTime = parsePTDate(race.date);
 
   const card = document.createElement("div");
   card.className = "race-card";
@@ -39,8 +53,7 @@ calendar2026.forEach(race => {
     <div class="race-header">
       <h3>${race.name}</h3>
     </div>
-
-    <div class="race-countdown" data-race-date="${race.date}">
+    <div class="race-countdown" data-time="${raceTime}">
       ...
     </div>
   `;
@@ -48,17 +61,17 @@ calendar2026.forEach(race => {
   raceCardsContainer.appendChild(card);
 });
 
-// Loop global
+/* ========= LOOP GLOBAL ========= */
 setInterval(() => {
   if (nextRace) {
     updateCountdown(
       heroCountdown,
-      new Date(nextRace.date).getTime()
+      parsePTDate(nextRace.date)
     );
   }
 
   document.querySelectorAll(".race-countdown").forEach(el => {
-    const raceDate = new Date(el.dataset.raceDate).getTime();
-    updateCountdown(el, raceDate);
+    const raceTime = Number(el.dataset.time);
+    updateCountdown(el, raceTime);
   });
 }, 1000);
