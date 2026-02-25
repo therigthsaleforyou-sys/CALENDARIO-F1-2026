@@ -1,5 +1,5 @@
 // js/main.js
-// Homepage – hero dinâmico + cards clicáveis + countdowns hero e cards
+// Homepage – versão estável com hero dinâmico + fichas clicáveis + transições suaves
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
@@ -16,40 +16,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
   /* =========================
-     HERO – corrida ativa
+     HERO – corrida ativa com Austrália fixa no início
   ========================= */
 
-  let activeRace = calendar2026[0]; // Austrália inicial
+  let activeRace = calendar2026[0]; // primeira corrida = Austrália
 
   function getActiveRace() {
     const now = new Date();
     for (let race of calendar2026) {
       if (new Date(race.sessions.race) > now) return race;
     }
-    return calendar2026[calendar2026.length - 1];
+    return calendar2026[calendar2026.length - 1]; // última corrida caso todas passem
   }
 
-  function startHeroCountdown(race) {
-    heroCountdown.style.display = "block";
+  function startCountdown(race, element) {
     function update() {
       const now = new Date();
       const target = new Date(race.sessions.race);
       const diff = target - now;
 
       if (diff <= 0) {
-        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        element.textContent = "🏁 Corrida terminada — ver resultados 🏁";
+        // Atualizar hero para próxima corrida
         activeRace = getActiveRace();
         heroImage.src = activeRace.heroImage || activeRace.cardImage;
         heroTitle.textContent = activeRace.name;
         return;
       }
 
-      const d = Math.floor(diff / (1000*60*60*24));
-      const h = Math.floor((diff / (1000*60*60)) % 24);
-      const m = Math.floor((diff / (1000*60)) % 60);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
 
-      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+      element.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
     }
 
     update();
@@ -58,10 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   heroImage.src = activeRace.heroImage || activeRace.cardImage;
   heroTitle.textContent = activeRace.name;
-  startHeroCountdown(activeRace);
+  startCountdown(activeRace, heroCountdown);
+  heroCountdown.style.display = "block";
 
   /* =========================
-     CARDS DAS CORRIDAS
+     FICHAS DAS CORRIDAS COM COUNTDOWN
   ========================= */
 
   raceCards.innerHTML = "";
@@ -73,37 +74,18 @@ document.addEventListener("DOMContentLoaded", () => {
     card.className = "race-card";
     if (isFavorite) card.classList.add("favorite");
 
-    // Countdown do card
+    // Countdown do card (logo abaixo do título)
     const cardCountdown = document.createElement("div");
     cardCountdown.className = "card-countdown";
-    cardCountdown.style.marginBottom = "8px";
-
-    function startCardCountdown() {
-      function updateCard() {
-        const now = new Date();
-        const target = new Date(race.sessions.race);
-        const diff = target - now;
-        if (diff <= 0) {
-          cardCountdown.textContent = "🏁 Corrida terminada 🏁";
-          return;
-        }
-        const d = Math.floor(diff / (1000*60*60*24));
-        const h = Math.floor((diff / (1000*60*60)) % 24);
-        const m = Math.floor((diff / (1000*60)) % 60);
-        const s = Math.floor((diff / 1000) % 60);
-        cardCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
-      }
-      updateCard();
-      setInterval(updateCard, 1000);
-    }
-
-    startCardCountdown();
+    cardCountdown.style.fontWeight = "bold";
+    cardCountdown.style.color = "#ff0000";
+    cardCountdown.style.marginTop = "6px";
+    cardCountdown.style.textAlign = "left";
 
     card.innerHTML = `
       <img class="race-image" src="${race.cardImage}" alt="${race.name}">
       <div class="race-header">
         <h3>${race.name}</h3>
-        <button class="fav-btn ${isFavorite ? "active" : ""}" data-id="${race.id}">🏁</button>
       </div>
       <div class="race-details hidden">
         <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
@@ -119,15 +101,22 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    card.prepend(cardCountdown); // adiciona o countdown do card antes do restante conteúdo
+    // Inserir o Countdown logo abaixo do título
+    const header = card.querySelector(".race-header");
+    header.appendChild(cardCountdown);
+
     raceCards.appendChild(card);
 
-    // Dropdown suave
+    // Inicializar countdown do card
+    startCountdown(race, cardCountdown);
+
+    // Drop-down suave ao clicar na imagem
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
     if (img && details) {
       if (details.classList.contains("hidden")) details.style.maxHeight = "0";
       img.style.cursor = "pointer";
+
       img.addEventListener("click", () => {
         const open = !details.classList.contains("hidden");
         if (open) {
@@ -159,12 +148,13 @@ document.addEventListener("DOMContentLoaded", () => {
         e.target.classList.add("active");
         card.classList.add("favorite");
       }
+
       localStorage.setItem("favorites", JSON.stringify(favorites));
     }
   });
 
   /* =========================
-     HERO CLICÁVEL → scroll para card ativo
+     HERO CLICÁVEL → rolar até card ativo
   ========================= */
   heroImage.addEventListener("click", () => {
     const card = Array.from(raceCards.children).find(c => c.querySelector(".race-header h3").textContent === activeRace.name);
