@@ -1,86 +1,222 @@
 /* Reset e box-sizing */
-* { box-sizing: border-box; margin:0; padding:0; -webkit-tap-highlight-color: transparent; }
-body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0b0b0b; color:#fff; line-height:1.5; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0b0b0b;
+  color: #fff;
+  line-height: 1.5;
+}
 
 /* HEADER */
-header { 
-  padding:12px; 
-  background:#000; 
-  border-bottom:2px solid #ff0000; 
+header {
+  padding: 12px;
+  background: #000;
+  border-bottom: 2px solid #ff0000;
 }
 
-nav { 
-  display:flex; 
-  gap:10px; 
+nav {
+  display: flex;
+  gap: 10px;
 }
 
-nav a { 
-  flex:1; 
-  text-align:center; 
-  text-decoration:none; 
-  color:#fff; 
-  padding:10px 0; 
-  border:2px solid #ff0000; 
-  border-radius:14px; 
-  font-weight:700; 
-  transition:box-shadow 0.2s ease, transform 0.1s ease; 
+nav a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 0;
+  border: 2px solid #ff0000;
+  border-radius: 14px;
+  font-weight: 700;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
 }
 
-nav a:hover { 
-  box-shadow:0 0 12px rgba(255,0,0,0.8); 
+nav a:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
 }
 
-nav a:active { 
-  transform: scale(0.96); 
+nav a:active {
+  transform: scale(0.96);
 }
 
-nav a.active { 
-  box-shadow:0 0 16px rgba(255,0,0,1); 
+nav a.active {
+  box-shadow: 0 0 16px rgba(255, 0, 0, 1);
 }
 
-/* ===== AJUSTE FINO DO ESPAÇO ENTRE LINHAS DO HEADER ===== */
+/* AJUSTE FINO HEADER */
 .nav-top {
-  padding-bottom: 6px;   /* espaço inferior da primeira linha */
+  padding-bottom: 6px;
   margin-bottom: 0;
 }
 
 .nav-bottom {
-  padding-top: 6px;      /* espaço superior da segunda linha */
+  padding-top: 6px;
   margin-top: 0;
 }
 
 /* HERO */
-#hero { margin:16px; padding:12px; border:2px solid #fff; border-radius:16px; text-align:center; }
-#hero img { width:100%; border-radius:14px; display:block; cursor:pointer; }
-#hero h2 { margin:12px 0 6px; }
-#hero .countdown { color:#ff0000; font-weight:bold; font-size:1.2rem; margin-top:10px; }
+#hero {
+  margin: 16px;
+  padding: 12px;
+  border: 2px solid #fff;
+  border-radius: 16px;
+  text-align: center;
+}
+
+#hero img {
+  width: 100%;
+  border-radius: 14px;
+  display: block;
+  cursor: pointer;
+}
+
+#hero h2 {
+  margin: 12px 0 6px;
+}
+
+/* COUNTDOWN — CANÓNICO, VISÍVEL, FORTE */
+#hero-countdown {
+  margin-top: 14px;
+  font-size: clamp(28px, 6vw, 44px);
+  font-weight: 900;
+  color: #ff0000;
+  text-align: center;
+  letter-spacing: 1.2px;
+  text-shadow:
+    0 0 4px rgba(0, 0, 0, 1),
+    0 0 10px rgba(0, 0, 0, 0.95),
+    0 0 18px rgba(0, 0, 0, 0.9);
+}
 
 /* RACE CARDS */
-#race-cards { padding:12px; }
-.race-card { border:2px solid #ff0000; border-radius:16px; padding:12px; margin-bottom:20px; transition:border-color 0.2s ease, box-shadow 0.2s ease; background:#111; }
-.race-card.favorite { border-color:gold; box-shadow:0 0 12px rgba(255,215,0,0.7); }
-.race-card img { width:100%; border-radius:14px; margin-bottom:8px; }
-.race-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-.race-header h3 { margin:0; }
-.fav-btn { background:none; border:none; font-size:1.3rem; cursor:pointer; color:#888; }
-.fav-btn.active { color:#ffd700; }
+#race-cards {
+  padding: 12px;
+}
+
+.race-card {
+  border: 2px solid #ff0000;
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 20px;
+  background: #111;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.race-card.favorite {
+  border-color: gold;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+}
+
+.race-card img {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 8px;
+}
+
+.race-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.race-header h3 {
+  margin: 0;
+}
+
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #888;
+}
+
+.fav-btn.active {
+  color: #ffd700;
+}
 
 /* DROPBOX SUAVE */
-.race-details { overflow:hidden; transition:max-height 0.3s ease; margin-top:10px; line-height:1.6; }
-.hidden { display:none; max-height:0 !important; }
+.race-details {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-top: 10px;
+  line-height: 1.6;
+}
 
-/* Botão das fichas de corrida */
-.race-link-wrapper { text-align:center; margin-top:12px; }
-.race-link-btn { display:inline-block; padding:10px 20px; background-color:#000; color:#fff; border:2px solid #ff0000; border-radius:14px; font-weight:700; text-decoration:none; cursor:pointer; transition:box-shadow 0.2s ease, transform 0.1s ease; }
-.race-link-btn:hover { box-shadow:0 0 12px rgba(255,0,0,0.8); }
-.race-link-btn:active { transform: scale(0.96); }
+.hidden {
+  display: none;
+  max-height: 0 !important;
+}
+
+/* BOTÃO FICHA DE CORRIDA */
+.race-link-wrapper {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.race-link-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #ff0000;
+  border-radius: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.race-link-btn:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+}
+
+.race-link-btn:active {
+  transform: scale(0.96);
+}
 
 /* BACK TO TOP */
-#back-to-top { position:fixed; bottom:80px; right:20px; display:none; background:#000; color:#fff; border:2px solid #ff0000; border-radius:14px; padding:10px 16px; font-weight:700; font-size:16px; cursor:pointer; z-index:999; transition:box-shadow 0.2s ease, transform 0.1s ease; }
-#back-to-top:hover { box-shadow:0 0 12px rgba(255,0,0,0.8); }
-#back-to-top:active { transform: scale(0.96); }
-#back-to-top.show { display:block; }
+#back-to-top {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  display: none;
+  background: #000;
+  color: #fff;
+  border: 2px solid #ff0000;
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 999;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+#back-to-top:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+}
+
+#back-to-top:active {
+  transform: scale(0.96);
+}
+
+#back-to-top.show {
+  display: block;
+}
 
 /* CARDS MESMA LARGURA */
-.cards-wrapper { padding:12px; }
-.cards-wrapper .race-card { width:100%; }
+.cards-wrapper {
+  padding: 12px;
+}
+
+.cards-wrapper .race-card {
+  width: 100%;
+}
