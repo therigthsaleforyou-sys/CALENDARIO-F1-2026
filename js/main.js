@@ -26,21 +26,17 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let race of calendar2026) {
       if (new Date(race.sessions.race) > now) return race;
     }
-    return calendar2026[calendar2026.length - 1]; // última corrida caso todas passem
+    return calendar2026[calendar2026.length - 1];
   }
 
-  function startCountdown(race, element) {
+  function startCountdown(race, countdownElement) {
     function update() {
       const now = new Date();
       const target = new Date(race.sessions.race);
       const diff = target - now;
 
       if (diff <= 0) {
-        element.textContent = "🏁 Corrida terminada — ver resultados 🏁";
-        // Atualizar hero para próxima corrida
-        activeRace = getActiveRace();
-        heroImage.src = activeRace.heroImage || activeRace.cardImage;
-        heroTitle.textContent = activeRace.name;
+        countdownElement.textContent = "🏁 Corrida terminada 🏁";
         return;
       }
 
@@ -49,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const m = Math.floor((diff / (1000 * 60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
 
-      element.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+      countdownElement.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
     }
 
     update();
@@ -58,11 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   heroImage.src = activeRace.heroImage || activeRace.cardImage;
   heroTitle.textContent = activeRace.name;
-  startCountdown(activeRace, heroCountdown);
   heroCountdown.style.display = "block";
+  startCountdown(activeRace, heroCountdown);
 
   /* =========================
-     FICHAS DAS CORRIDAS COM COUNTDOWN
+     FICHAS DAS CORRIDAS
   ========================= */
 
   raceCards.innerHTML = "";
@@ -74,60 +70,69 @@ document.addEventListener("DOMContentLoaded", () => {
     card.className = "race-card";
     if (isFavorite) card.classList.add("favorite");
 
-    // Countdown do card (logo abaixo do título)
+    // CRIAR ELEMENTOS
+    const img = document.createElement("img");
+    img.className = "race-image";
+    img.src = race.cardImage;
+    img.alt = race.name;
+    img.style.cursor = "pointer";
+
+    const header = document.createElement("div");
+    header.className = "race-header";
+
+    const title = document.createElement("h3");
+    title.textContent = race.name;
+
+    const favBtn = document.createElement("button");
+    favBtn.className = `fav-btn ${isFavorite ? "active" : ""}`;
+    favBtn.dataset.id = race.id;
+    favBtn.textContent = "🏁";
+
+    header.appendChild(title);
+    header.appendChild(favBtn);
+
+    // Countdown do card
     const cardCountdown = document.createElement("div");
     cardCountdown.className = "card-countdown";
-    cardCountdown.style.fontWeight = "bold";
-    cardCountdown.style.color = "#ff0000";
-    cardCountdown.style.marginTop = "6px";
+    cardCountdown.style.fontSize = "1rem"; // tamanho menor
     cardCountdown.style.textAlign = "left";
+    startCountdown(race, cardCountdown);
 
-    card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-      <div class="race-header">
-        <h3>${race.name}</h3>
-      </div>
-      <div class="race-details hidden">
-        <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
-        <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
-        <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
-        <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
-        <p><strong>Corrida:</strong> ${race.sessions.race}</p>
-        <div class="race-link-wrapper">
-          <a class="race-link-btn" href="race/${race.id}.html">
-            Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
-          </a>
-        </div>
+    // Detalhes
+    const details = document.createElement("div");
+    details.className = "race-details hidden";
+    details.innerHTML = `
+      <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
+      <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
+      <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
+      <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
+      <p><strong>Corrida:</strong> ${race.sessions.race}</p>
+      <div class="race-link-wrapper">
+        <a class="race-link-btn" href="race/${race.id}.html">
+          Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
+        </a>
       </div>
     `;
 
-    // Inserir o Countdown logo abaixo do título
-    const header = card.querySelector(".race-header");
-    header.appendChild(cardCountdown);
+    // ANEXAR AO CARD NA ORDEM CORRETA
+    card.appendChild(img);
+    card.appendChild(header);
+    card.appendChild(cardCountdown); // Countdown abaixo do título
+    card.appendChild(details);
 
     raceCards.appendChild(card);
 
-    // Inicializar countdown do card
-    startCountdown(race, cardCountdown);
-
-    // Drop-down suave ao clicar na imagem
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
-    if (img && details) {
-      if (details.classList.contains("hidden")) details.style.maxHeight = "0";
-      img.style.cursor = "pointer";
-
-      img.addEventListener("click", () => {
-        const open = !details.classList.contains("hidden");
-        if (open) {
-          details.style.maxHeight = "0";
-          setTimeout(() => details.classList.add("hidden"), 300);
-        } else {
-          details.classList.remove("hidden");
-          details.style.maxHeight = details.scrollHeight + "px";
-        }
-      });
-    }
+    // Drop-down suave
+    img.addEventListener("click", () => {
+      const open = !details.classList.contains("hidden");
+      if (open) {
+        details.style.maxHeight = "0";
+        setTimeout(() => details.classList.add("hidden"), 300);
+      } else {
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
+    });
   });
 
   /* =========================
