@@ -1,109 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
-    return;
-  }
 
+  // ================= HERO =================
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const heroCountdown = document.getElementById("hero-countdown");
-  const raceCards = document.getElementById("race-cards");
-  const backToTop = document.getElementById("back-to-top");
 
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  // Seleciona imagem do hero diretamente da pasta heroes
+  heroImage.src = "../assets/heroes/australia_v2.jpg";
+  heroTitle.textContent = "Grande Prémio da Austrália";
 
-  // ================= HERO =================
-  const thisRace = calendar2026.find(r => r.id === "australia");
+  // Data oficial da corrida Austrália 2026
+  const raceDateISO = "2026-03-08T05:00:00Z";
 
-  heroImage.src = thisRace.heroImage || thisRace.cardImage;
-  heroTitle.textContent = thisRace.name;
-
-  function startCountdown(targetRace, element) {
+  function startCountdown(dateISO) {
     function update() {
       const now = new Date();
-      const target = new Date(targetRace.sessions.race);
+      const target = new Date(dateISO);
       const diff = target - now;
+
       if (diff <= 0) {
-        element.textContent = "🏁 Corrida terminada 🏁";
+        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
         return;
       }
+
       const d = Math.floor(diff / (1000*60*60*24));
       const h = Math.floor((diff / (1000*60*60)) % 24);
       const m = Math.floor((diff / (1000*60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
-      element.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
     }
     update();
-    setInterval(update,1000);
+    setInterval(update, 1000);
   }
 
-  startCountdown(thisRace, heroCountdown);
-
-  // ================= CARD DA CORRIDA =================
-  raceCards.innerHTML = "";
-
-  const card = document.createElement("div");
-  card.className = "race-card";
-
-  card.innerHTML = `
-    <img src="../${thisRace.diagram}" alt="Diagrama da pista – ${thisRace.name}">
-    <div class="race-header">
-      <h3>${thisRace.name} – 2025</h3>
-      <button class="fav-btn" data-id="${thisRace.id}">🏁</button>
-    </div>
-    <div class="race-details">
-      <h4>Resultados 2025</h4>
-      <p><strong>Pole:</strong> ${thisRace.results2025.pole}</p>
-      <p><strong>Pódio:</strong> ${thisRace.results2025.podium}</p>
-      <p><strong>Volta mais rápida:</strong> ${thisRace.results2025.fastestLap}</p>
-      <p><strong>Meteorologia:</strong> ${thisRace.results2025.weather}</p>
-    </div>
-    <a href="resultados.html#${thisRace.id}" class="back-calendar-btn">🏁 Ver Resultados</a>
-  `;
-
-  raceCards.appendChild(card);
+  startCountdown(raceDateISO);
 
   // ================= FAVORITOS =================
-  const favBtn = card.querySelector(".fav-btn");
-  if(favorites.includes(thisRace.id)) favBtn.classList.add("active");
+  const favBtn = document.querySelector(".fav-btn");
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (favorites.includes("australia")) favBtn.classList.add("active");
 
   favBtn.addEventListener("click", () => {
-    if(favorites.includes(thisRace.id)) {
-      favorites.splice(favorites.indexOf(thisRace.id),1);
+    if (favorites.includes("australia")) {
+      favorites.splice(favorites.indexOf("australia"), 1);
       favBtn.classList.remove("active");
     } else {
-      favorites.push(thisRace.id);
+      favorites.push("australia");
       favBtn.classList.add("active");
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
   });
 
-  // ================= DROPDOWN DETALHES =================
-  const img = card.querySelector("img");
-  const details = card.querySelector(".race-details");
-  img.addEventListener("click", () => {
-    const open = !details.classList.contains("hidden");
-    if(open){
-      details.style.maxHeight = "0";
-      setTimeout(()=>details.classList.add("hidden"),300);
-    } else {
-      details.classList.remove("hidden");
-      details.style.maxHeight = details.scrollHeight + "px";
-    }
-  });
-
-  // ================= HERO CLICÁVEL =================
-  heroImage.addEventListener("click", () => {
-    card.scrollIntoView({behavior:"smooth", block:"start"});
-    details.classList.remove("hidden");
-    details.style.maxHeight = details.scrollHeight + "px";
-  });
-
   // ================= BACK TO TOP =================
+  const backToTop = document.getElementById("back-to-top");
+
   window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY>400);
+    backToTop.classList.toggle("show", window.scrollY > 400);
   });
+
   backToTop.addEventListener("click", () => {
-    window.scrollTo({top:0, behavior:"smooth"});
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
+
 });
