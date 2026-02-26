@@ -68,7 +68,67 @@
 <button id="back-to-top">Voltar ao topo</button>
 
 <!-- SCRIPT DA PÁGINA -->
-<script src="../js/pistas.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const heroCountdown = document.getElementById("hero-countdown");
+
+  // Data/hora oficial da corrida China 2026
+  const raceDateISO = "2026-04-12T07:00:00Z";
+
+  function startCountdown(dateISO) {
+    function update() {
+      const now = new Date();
+      const target = new Date(dateISO);
+      const diff = target - now;
+
+      if (diff <= 0) {
+        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  startCountdown(raceDateISO);
+
+  /* FAVORITOS */
+  const favBtn = document.querySelector(".fav-btn");
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (favorites.includes("china")) favBtn.classList.add("active");
+
+  favBtn.addEventListener("click", () => {
+    if (favorites.includes("china")) {
+      favorites.splice(favorites.indexOf("china"), 1);
+      favBtn.classList.remove("active");
+    } else {
+      favorites.push("china");
+      favBtn.classList.add("active");
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  });
+
+  /* BACK TO TOP */
+  const backToTop = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) backToTop.classList.add("show");
+    else backToTop.classList.remove("show");
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
 
 </body>
 </html>
