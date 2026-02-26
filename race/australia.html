@@ -4,40 +4,90 @@
   <meta charset="UTF-8">
   <title>Grande Prémio da Austrália – F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/corridas.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Botão Ver Resultados */
+    .back-calendar-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 12px;
+      background: #000;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+    .back-calendar-btn:hover { box-shadow: 0 0 12px rgba(255, 0, 0, 0.8); }
+    .back-calendar-btn:active { transform: scale(0.96); }
+
+    /* Botão Voltar ao topo */
+    #back-to-top {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      display: none;
+      background: #000;
+      color: #fff;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 999;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+    #back-to-top:hover { box-shadow: 0 0 12px rgba(255, 0, 0, 0.8); }
+    #back-to-top:active { transform: scale(0.96); }
+    #back-to-top.show { display: block; }
+  </style>
 </head>
 <body>
 
 <!-- ================= HEADER ================= -->
 <header class="main-header">
-
-  <!-- LINHA DE CIMA -->
-  <nav class="nav-top">
-    <a href="../index.html" class="active">Calendário</a>
+  <nav class="nav">
+    <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
     <a href="resultados.html">Resultados</a>
   </nav>
-
-  <!-- LINHA DE BAIXO -->
-  <nav class="nav-bottom">
-    <a href="campeonatos.html" class="wide">Campeonatos</a>
-    <a href="corridas.html" class="wide">Corridas</a>
-  </nav>
-
 </header>
 
 <main>
 
   <!-- HERO -->
   <section id="hero">
-    <img id="hero-image" src="" alt="Hero Corrida">
-    <h2 id="hero-title"></h2>
+    <img id="hero-image" src="../assets/races/australia.jpg" alt="Grande Prémio da Austrália">
+    <h2 id="hero-title">Grande Prémio da Austrália</h2>
     <div id="hero-countdown" class="countdown"></div>
   </section>
 
-  <!-- CARDS DA CORRIDA -->
-  <section id="race-cards" class="cards-wrapper"></section>
+  <!-- FICHA DA CORRIDA -->
+  <section id="race-cards">
+    <div class="race-card">
+      <img src="../assets/diagramas/australia2d.jpg" alt="Diagrama da pista – Austrália">
+      <div class="race-header">
+        <h3>Grande Prémio da Austrália – 2026</h3>
+        <button class="fav-btn" data-id="australia">🏁</button>
+      </div>
+
+      <div class="race-details">
+        <h4>Resultados 2025</h4>
+        <p><strong>Pole:</strong> Max Verstappen – 1:22.500</p>
+        <p><strong>Pódio:</strong> 1º Lewis Hamilton, 2º Charles Leclerc, 3º Sergio Pérez</p>
+        <p><strong>Volta mais rápida:</strong> Lando Norris – 1:25.300</p>
+        <p><strong>Meteorologia:</strong> Sol, 28°C</p>
+      </div>
+
+      <!-- Botão para resultados -->
+      <a href="resultados.html#australia" class="back-calendar-btn">🏁 Ver Resultados</a>
+    </div>
+  </section>
 
 </main>
 
@@ -48,8 +98,67 @@
 <!-- BOTÃO VOLTAR AO TOPO -->
 <button id="back-to-top">Voltar ao topo</button>
 
-<script src="../data/calendar2026-v2.js"></script>
-<script src="../js/corridas.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const heroCountdown = document.getElementById("hero-countdown");
+
+  // Data/hora oficial da corrida Austrália 2026
+  const raceDateISO = "2026-03-08T05:00:00Z";
+
+  function startCountdown(dateISO) {
+    function update() {
+      const now = new Date();
+      const target = new Date(dateISO);
+      const diff = target - now;
+
+      if (diff <= 0) {
+        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  startCountdown(raceDateISO);
+
+  /* FAVORITOS */
+  const favBtn = document.querySelector(".fav-btn");
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (favorites.includes("australia")) favBtn.classList.add("active");
+
+  favBtn.addEventListener("click", () => {
+    if (favorites.includes("australia")) {
+      favorites.splice(favorites.indexOf("australia"), 1);
+      favBtn.classList.remove("active");
+    } else {
+      favorites.push("australia");
+      favBtn.classList.add("active");
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  });
+
+  /* BACK TO TOP */
+  const backToTop = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) backToTop.classList.add("show");
+    else backToTop.classList.remove("show");
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
 
 </body>
 </html>
