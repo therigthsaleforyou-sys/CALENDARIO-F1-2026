@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ================= HERO =================
-  heroImage.src = race.heroImage || race.cardImage;
+  // Hero deve ir buscar sempre a imagem da corrida (races) ou heroImage
+  heroImage.src = race.raceImage || race.heroImage || race.cardImage;
   heroTitle.textContent = race.name;
 
   function startCountdown(dateISO, element) {
@@ -95,4 +96,4 @@ document.addEventListener("DOMContentLoaded", () => {
   backToTop.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-}); 
+});
