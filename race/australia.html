@@ -2,73 +2,104 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Grande Prémio da Austrália 2026</title>
+  <title>Grande Prémio da Austrália – F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/pistas.css">
+  <style>
+    /* Botão Ver Resultados ocupa full width do card */
+    .back-calendar-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px 0;
+      margin-top: 12px;
+      background: #000;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+    .back-calendar-btn:hover { box-shadow: 0 0 12px rgba(255,0,0,0.8); }
+    .back-calendar-btn:active { transform: scale(0.96); }
 
-  <!-- CSS EXCLUSIVO DAS PISTAS -->
-  <link rel="stylesheet" href="../css/pistas.css">
+    /* Botão Voltar ao Topo */
+    #back-to-top {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      display: none;
+      background: #000;
+      color: #fff;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 999;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+    #back-to-top:hover { box-shadow: 0 0 12px rgba(255,0,0,0.8); }
+    #back-to-top:active { transform: scale(0.96); }
+    #back-to-top.show { display: block; }
+  </style>
 </head>
-
 <body>
 
 <header class="main-header">
+  <!-- LINHA DE CIMA -->
   <nav class="nav-top">
     <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
-    <a href="../race/resultados.html">Resultados</a>
+    <a href="resultados.html">Resultados</a>
   </nav>
 
+  <!-- LINHA DE BAIXO -->
   <nav class="nav-bottom">
-    <a href="../race/campeonatos.html" class="wide">Campeonatos</a>
-    <a href="../race/corridas.html" class="wide">Corridas</a>
+    <a href="campeonatos.html" class="wide">Campeonatos</a>
+    <a href="corridas.html" class="wide">Corridas</a>
   </nav>
 </header>
 
-<!-- HERO DA PRÓPRIA CORRIDA -->
-<section class="hero" id="hero"></section>
+<main>
 
-<main class="page-content">
+  <!-- HERO -->
+  <section id="hero">
+    <img id="hero-image" src="assets/heroes/australia.jpg" alt="Grande Prémio da Austrália">
+    <h2 id="hero-title">Grande Prémio da Austrália – 2026</h2>
+    <div id="hero-countdown"></div>
+  </section>
 
-  <section class="race-cards">
-
-    <!-- CARD ESQUERDO -->
+  <!-- CARD DA CORRIDA -->
+  <section id="race-cards">
     <div class="race-card">
-      <img id="track-diagram" alt="Diagrama da pista">
-
-      <div>
-        <h2 id="race-name"></h2>
-        <p id="race-data"></p>
+      <img src="assets/diagramas/australia2d.jpg" alt="Diagrama da pista – Austrália">
+      <div class="race-header">
+        <h3>Grande Prémio da Austrália – 2026</h3>
+        <button class="fav-btn" data-id="australia">🏁</button>
       </div>
-
-      <!-- BOTÃO RESULTADOS (LARGURA TOTAL) -->
-      <a id="results-btn" href="#">Ver Resultados</a>
-    </div>
-
-    <!-- CARD DIREITO -->
-    <div class="race-card">
-      <div>
-        <h3>Countdown</h3>
-        <p id="countdown"></p>
+      <div class="race-details">
+        <h4>Resultados 2025</h4>
+        <p><strong>Pole:</strong> Max Verstappen – 1:22.500</p>
+        <p><strong>Pódio:</strong> 1º Lewis Hamilton, 2º Charles Leclerc, 3º Sergio Pérez</p>
+        <p><strong>Volta mais rápida:</strong> Lando Norris – 1:25.300</p>
+        <p><strong>Meteorologia:</strong> Sol, 28°C</p>
       </div>
+      <a href="resultados.html#australia" class="back-calendar-btn">🏁 Ver Resultados</a>
     </div>
-
   </section>
 
 </main>
 
-<!-- VOLTAR AO TOPO -->
-<button id="back-to-top">↑</button>
-
-<footer>
-  F1 Calendar 2026
+<footer style="text-align:center;padding:20px;opacity:.6">
+  F1 2026
 </footer>
 
-<!-- DADOS -->
-<script src="../data/calendar2026-v2.js"></script>
+<button id="back-to-top">Voltar ao topo</button>
 
-<!-- JS EXCLUSIVO DAS PISTAS -->
-<script src="../js/pistas.js"></script>
-
+<script src="js/pistas.js"></script>
 </body>
 </html>
