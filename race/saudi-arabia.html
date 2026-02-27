@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Grande Prémio da Arábia Saudita – F1 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/pistas.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="main-header">
+
+  <!-- LINHA DE CIMA -->
+  <nav class="nav-top">
+    <a href="../index.html" class="active">Calendário</a>
+    <a href="../teams.html">Equipas</a>
+    <a href="../f1noticias.html">Notícias</a>
+    <a href="resultados.html">Resultados</a>
+  </nav>
+
+  <!-- LINHA DE BAIXO -->
+  <nav class="nav-bottom">
+    <a href="campeonatos.html" class="wide">Campeonatos</a>
+    <a href="corridas.html" class="wide">Corridas</a>
+  </nav>
+
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <img id="hero-image" src="../assets/heroes/saudi_arabia.jpg" alt="Grande Prémio da Arábia Saudita">
+    <h2 id="hero-title">Grande Prémio da Arábia Saudita</h2>
+    <div id="hero-countdown" class="countdown"></div>
+  </section>
+
+  <!-- FICHA DA CORRIDA -->
+  <section id="race-cards">
+    <div class="race-card">
+      <img src="../assets/diagramas/saudi_arabia2d.jpg" alt="Diagrama da pista – Arábia Saudita">
+      <div class="race-header">
+        <h3>Grande Prémio da Arábia Saudita – 2026</h3>
+        <button class="fav-btn" data-id="saudi-arabia">🏁</button>
+      </div>
+
+      <div class="race-details">
+        <h4>Resultados 2025</h4>
+        <p><strong>Pole:</strong> Max Verstappen – 1:27.294</p>
+        <p><strong>Pódio:</strong> 1º Oscar Piastri, 2º Max Verstappen, 3º Charles Leclerc</p>
+        <p><strong>Volta mais rápida:</strong> Lando Norris – 1:31.778</p>
+        <p><strong>Meteorologia:</strong> Quente e seco à noite</p>
+      </div>
+
+      <!-- Botão para resultados -->
+      <a href="resultados.html#saudi-arabia" class="back-calendar-btn">🏁 Ver Resultados</a>
+    </div>
+  </section>
+
+</main>
+
+<footer style="text-align:center;padding:20px;opacity:.6">
+  F1 2026
+</footer>
+
+<!-- BOTÃO VOLTAR AO TOPO -->
+<button id="back-to-top">Voltar ao topo</button>
+
+<!-- SCRIPT DA PÁGINA -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const heroCountdown = document.getElementById("hero-countdown");
+
+  // Data correta da corrida Arábia Saudita 2026
+  const raceDateISO = "2026-04-19T17:00:00Z";
+
+  function startCountdown(dateISO) {
+    function update() {
+      const now = new Date();
+      const target = new Date(dateISO);
+      const diff = target - now;
+
+      if (diff <= 0) {
+        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  startCountdown(raceDateISO);
+
+  /* FAVORITOS */
+  const favBtn = document.querySelector(".fav-btn");
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (favorites.includes("saudi-arabia")) favBtn.classList.add("active");
+
+  favBtn.addEventListener("click", () => {
+    if (favorites.includes("saudi-arabia")) {
+      favorites.splice(favorites.indexOf("saudi-arabia"), 1);
+      favBtn.classList.remove("active");
+    } else {
+      favorites.push("saudi-arabia");
+      favBtn.classList.add("active");
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  });
+
+  /* BACK TO TOP */
+  const backToTop = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) backToTop.classList.add("show");
+    else backToTop.classList.remove("show");
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
+
+</body>
+</html>
