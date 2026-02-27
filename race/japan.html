@@ -47,10 +47,10 @@
 
       <div class="race-details">
         <h4>Resultados 2025</h4>
-        <p><strong>Pole:</strong> Max Verstappen – 1:29.000</p>
-        <p><strong>Pódio:</strong> 1º Lewis Hamilton, 2º Charles Leclerc, 3º Sergio Pérez</p>
+        <p><strong>Pole:</strong> Max Verstappen – 1:29.800</p>
+        <p><strong>Pódio:</strong> 1º Lewis Hamilton, 2º Sergio Pérez, 3º Charles Leclerc</p>
         <p><strong>Volta mais rápida:</strong> Lando Norris – 1:32.500</p>
-        <p><strong>Meteorologia:</strong> Sol, 30°C</p>
+        <p><strong>Meteorologia:</strong> Parcialmente nublado, 25°C</p>
       </div>
 
       <!-- Botão para resultados -->
@@ -69,6 +69,66 @@
 
 <!-- SCRIPT DA PÁGINA -->
 <script src="../js/pistas.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const heroCountdown = document.getElementById("hero-countdown");
+
+  // Data/hora oficial da corrida Japão 2026
+  const raceDateISO = "2026-03-22T05:00:00Z";
+
+  function startCountdown(dateISO) {
+    function update() {
+      const now = new Date();
+      const target = new Date(dateISO);
+      const diff = target - now;
+
+      if (diff <= 0) {
+        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  startCountdown(raceDateISO);
+
+  /* FAVORITOS */
+  const favBtn = document.querySelector(".fav-btn");
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (favorites.includes("japan")) favBtn.classList.add("active");
+
+  favBtn.addEventListener("click", () => {
+    if (favorites.includes("japan")) {
+      favorites.splice(favorites.indexOf("japan"), 1);
+      favBtn.classList.remove("active");
+    } else {
+      favorites.push("japan");
+      favBtn.classList.add("active");
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  });
+
+  /* BACK TO TOP */
+  const backToTop = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("show", window.scrollY > 400);
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
 
 </body>
 </html>
