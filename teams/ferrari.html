@@ -4,45 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ferrari F1 2026</title>
-  <link rel="stylesheet" href="css/equipas.css">
+  <link rel="stylesheet" href="../css/style.css">    <!-- CSS geral -->
+  <link rel="stylesheet" href="../css/teams.css">    <!-- CSS teams -->
+  <link rel="stylesheet" href="../css/equipas.css">  <!-- CSS específico da equipa -->
 </head>
 <body>
 
   <header class="main-header">
+    <!-- LINHA DE CIMA -->
     <nav class="nav-top">
       <a href="../index.html">Calendário</a>
-      <a href="../teams.html">Equipas</a>
+      <a href="../teams.html" class="active">Equipas</a>
       <a href="../f1noticias.html">Notícias</a>
       <a href="../race/resultados.html">Resultados</a>
+    </nav>
+    <!-- LINHA DE BAIXO -->
+    <nav class="nav-bottom">
+      <a href="../race/campeonatos.html" class="wide">Campeonatos</a>
+      <a href="../race/corridas.html" class="wide">Corridas</a>
     </nav>
   </header>
 
   <main class="content">
-    <section class="team-info">
-      <h1>Ferrari F1 Team</h1>
-      <img src="../assets/teams/ferrari.png" alt="Ferrari Logo" class="team-logo">
-      <p><strong>História:</strong> A Ferrari é a equipa mais icónica da Fórmula 1, fundada em 1929. Sempre presente na F1, com inúmeros títulos e pilotos lendários.</p>
+    <section id="team-cards" class="teams-grid">
 
-      <h2>Pilotos 2026</h2>
-      <div class="drivers">
-        <div class="driver-card">
-          <h3>Charles Leclerc</h3>
-          <p><strong>Data de Nascimento:</strong> 16/10/1997</p>
-          <p><strong>Idade:</strong> 28 anos</p>
-          <p><strong>Nacionalidade:</strong> Mónaco</p>
-        </div>
-        <div class="driver-card">
-          <h3>Lewis Hamilton</h3>
-          <p><strong>Data de Nascimento:</strong> 07/01/1985</p>
-          <p><strong>Idade:</strong> 41 anos</p>
-          <p><strong>Nacionalidade:</strong> Reino Unido</p>
-        </div>
+      <!-- Card Logo e História -->
+      <div class="team-card">
+        <img src="../assets/teams/ferrari.png" alt="Ferrari Logo">
+        <h3>Ferrari F1 Team</h3>
+        <p><strong>História:</strong> A Ferrari é a equipa mais icónica da Fórmula 1, fundada em 1929. Sempre presente na F1, com inúmeros títulos e pilotos lendários.</p>
       </div>
+
+      <!-- Card Piloto 1 -->
+      <div class="team-card">
+        <h3>Charles Leclerc</h3>
+        <p><strong>Data de Nascimento:</strong> 16/10/1997</p>
+        <p><strong>Idade:</strong> 28 anos</p>
+        <p><strong>Nacionalidade:</strong> Mónaco</p>
+      </div>
+
+      <!-- Card Piloto 2 -->
+      <div class="team-card">
+        <h3>Lewis Hamilton</h3>
+        <p><strong>Data de Nascimento:</strong> 07/01/1985</p>
+        <p><strong>Idade:</strong> 41 anos</p>
+        <p><strong>Nacionalidade:</strong> Reino Unido</p>
+      </div>
+
     </section>
   </main>
 
   <button id="back-to-top">Voltar ao topo</button>
 
-  <script src="../js/equipas.js"></script>
+  <script src="../js/teams.js"></script>   <!-- JS geral teams -->
+  <script src="../js/equipas.js"></script> <!-- JS específico da equipa -->
 </body>
 </html>
