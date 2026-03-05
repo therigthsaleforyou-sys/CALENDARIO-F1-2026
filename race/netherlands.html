@@ -47,10 +47,10 @@
 
       <div class="race-details">
         <h4>Resultados 2025</h4>
-        <p><strong>Pole:</strong> Lando Norris – 1:09.673</p>
-        <p><strong>Pódio:</strong> 1º Lando Norris, 2º Max Verstappen, 3º Charles Leclerc</p>
-        <p><strong>Volta mais rápida:</strong> Max Verstappen – 1:13.817</p>
-        <p><strong>Meteorologia:</strong> Parcialmente nublado, 22°C</p>
+        <p><strong>Pole:</strong> Oscar Piastri – 1:08.662</p>
+        <p><strong>Pódio:</strong> 1º Oscar Piastri, 2º Max Verstappen, 3º Isack Hadjar</p>
+        <p><strong>Volta mais rápida:</strong> Oscar Piastri – 1:12.271</p>
+        <p><strong>Meteorologia:</strong> Nublado</p>
       </div>
 
       <!-- Botão para resultados -->
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function update() {
       const now = new Date();
       const target = new Date(dateISO);
-      const diff = target - now;
+      const diff = target – now;
 
       if (diff <= 0) {
         heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
