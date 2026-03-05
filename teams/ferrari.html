@@ -24,6 +24,7 @@
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
+      align-items: stretch;
     }
     #team-cards .driver-card {
       flex: 1;
@@ -33,11 +34,18 @@
       padding: 12px;
       background: #111;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      gap: 12px;
+      align-items: flex-start;
     }
-    /* Igualar altura dos pilotos */
-    #team-cards .drivers-row {
-      align-items: stretch;
+    #team-cards .driver-card img {
+      width: 80px;
+      height: auto;
+      border-radius: 12px;
+    }
+    #team-cards .driver-info {
+      display: flex;
+      flex-direction: column;
     }
   </style>
 </head>
@@ -69,22 +77,29 @@
       <!-- Cards dos pilotos lado a lado -->
       <div class="drivers-row">
         <div class="driver-card">
-          <h3>Charles Leclerc</h3>
-          <p><strong>Data de Nascimento:</strong> 16/10/1997</p>
-          <p><strong>Idade:</strong> 28 anos</p>
-          <p><strong>Nacionalidade:</strong> Mónaco</p>
+          <img src="../assets/teams/charles.jpg" alt="Charles Leclerc">
+          <div class="driver-info">
+            <h3>Charles Leclerc</h3>
+            <p><strong>Data de Nascimento:</strong> 16/10/1997</p>
+            <p><strong>Idade:</strong> 28 anos</p>
+            <p><strong>Nacionalidade:</strong> Mónaco</p>
+          </div>
         </div>
         <div class="driver-card">
-          <h3>Lewis Hamilton</h3>
-          <p><strong>Data de Nascimento:</strong> 07/01/1985</p>
-          <p><strong>Idade:</strong> 41 anos</p>
-          <p><strong>Nacionalidade:</strong> Reino Unido</p>
+          <img src="../assets/teams/lewis.jpg" alt="Lewis Hamilton">
+          <div class="driver-info">
+            <h3>Lewis Hamilton</h3>
+            <p><strong>Data de Nascimento:</strong> 07/01/1985</p>
+            <p><strong>Idade:</strong> 41 anos</p>
+            <p><strong>Nacionalidade:</strong> Reino Unido</p>
+          </div>
         </div>
       </div>
 
     </section>
   </main>
 
+  <!-- Footer idêntico ao teams.html -->
   <footer class="main-footer">
     <div class="footer-content">
       <p>&copy; 2026 Fórmula 1. Todos os direitos reservados.</p>
@@ -97,6 +112,7 @@
     </div>
   </footer>
 
+  <!-- Botão flutuante Voltar ao topo -->
   <button id="back-to-top">Voltar ao topo</button>
 
   <script src="../js/teams.js"></script>
