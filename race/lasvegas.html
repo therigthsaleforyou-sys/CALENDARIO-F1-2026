@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Grande Prémio de Las Vegas – F1 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/pistas.css">
+</head>
+<body>
+
+<header class="main-header">
+
+  <nav class="nav-top">
+    <a href="../index.html" class="active">Calendário</a>
+    <a href="../teams.html">Equipas</a>
+    <a href="../f1noticias.html">Notícias</a>
+    <a href="resultados.html">Resultados</a>
+  </nav>
+
+  <nav class="nav-bottom">
+    <a href="campeonatos.html" class="wide">Campeonatos</a>
+    <a href="corridas.html" class="wide">Corridas</a>
+  </nav>
+
+</header>
+
+<main>
+
+<section id="hero">
+  <img id="hero-image" src="../assets/heroes/lasvegas.jpg" alt="Grande Prémio de Las Vegas">
+  <h2 id="hero-title">Grande Prémio de Las Vegas</h2>
+  <div id="hero-countdown" class="countdown"></div>
+</section>
+
+<section id="race-cards">
+  <div class="race-card">
+    <img src="../assets/diagramas/lasvegas2d.jpg" alt="Diagrama da pista – Las Vegas">
+
+    <div class="race-header">
+      <h3>Grande Prémio de Las Vegas – 2026</h3>
+      <button class="fav-btn" data-id="lasvegas">🏁</button>
+    </div>
+
+    <div class="race-details">
+      <h4>Resultados 2025</h4>
+      <p><strong>Pole:</strong> Lando Norris – 1:47.934</p>
+      <p><strong>Pódio:</strong> 1º Max Verstappen, 2º George Russell, 3º Kimi Antonelli</p>
+      <p><strong>Volta mais rápida:</strong> Max Verstappen – 1:33.365</p>
+      <p><strong>Meteorologia:</strong> Corrida noturna / seco</p>
+    </div>
+
+    <a href="resultados.html#lasvegas" class="back-calendar-btn">🏁 Ver Resultados</a>
+
+  </div>
+</section>
+
+</main>
+
+<footer style="text-align:center;padding:20px;opacity:.6">
+  F1 2026
+</footer>
+
+<button id="back-to-top">Voltar ao topo</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const heroCountdown = document.getElementById("hero-countdown");
+
+  const raceDateISO = "2026-11-22T04:00:00Z";
+
+  function startCountdown(dateISO) {
+    function update() {
+      const now = new Date();
+      const target = new Date(dateISO);
+      const diff = target - now;
+
+      if (diff <= 0) {
+        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  startCountdown(raceDateISO);
+
+  const favBtn = document.querySelector(".fav-btn");
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (favorites.includes("lasvegas")) favBtn.classList.add("active");
+
+  favBtn.addEventListener("click", () => {
+    if (favorites.includes("lasvegas")) {
+      favorites.splice(favorites.indexOf("lasvegas"), 1);
+      favBtn.classList.remove("active");
+    } else {
+      favorites.push("lasvegas");
+      favBtn.classList.add("active");
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  });
+
+  const backToTop = document.getElementById("back-to-top");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) backToTop.classList.add("show");
+    else backToTop.classList.remove("show");
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
+
+</body>
+</html>
