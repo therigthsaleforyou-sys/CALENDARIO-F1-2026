@@ -4,42 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Equipas F1</title>
-
   <!-- CSS base + específico -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/teams.css">
 </head>
-
 <body>
+  <header class="main-header">
+    <!-- LINHA DE CIMA -->
+    <nav class="nav-top">
+      <a href="index.html">Calendário</a>
+      <a href="teams.html" class="active">Equipas</a>
+      <a href="f1noticias.html">Notícias</a>
+      <a href="race/resultados.html">Resultados</a>
+    </nav>
+    <!-- LINHA DE BAIXO -->
+    <nav class="nav-bottom">
+      <a href="race/campeonatos.html" class="wide">Campeonatos</a>
+      <a href="race/corridas.html" class="wide">Corridas</a>
+    </nav>
+  </header>
 
-<header class="main-header">
+  <main class="content">
+    <section id="teams-container" class="teams-grid">
+      <!-- logos clicáveis -->
+      <a href="teams/mclaren.html"><img src="assets/teams/mclaren.png" alt="McLaren"></a>
+      <a href="teams/redbull.html"><img src="assets/teams/redbull.png" alt="Red Bull"></a>
+      <a href="teams/ferrari.html"><img src="assets/teams/ferrari.png" alt="Ferrari"></a>
+      <a href="teams/mercedes.html"><img src="assets/teams/mercedes.png" alt="Mercedes"></a>
+      <a href="teams/williams.html"><img src="assets/teams/williams.png" alt="Williams"></a>
+      <a href="teams/astonmartin.html"><img src="assets/teams/astonmartin.png" alt="Aston Martin"></a>
+      <a href="teams/alpine.html"><img src="assets/teams/alpine.png" alt="Alpine"></a>
+      <a href="teams/haas.html"><img src="assets/teams/haas.png" alt="Haas"></a>
+      <a href="teams/racingbulls.html"><img src="assets/teams/racingbulls.png" alt="Racing Bulls"></a>
+      <a href="teams/audi.html"><img src="assets/teams/audi.png" alt="Audi"></a>
+      <a href="teams/cadillac.html"><img src="assets/teams/cadillac.png" alt="Cadillac"></a>
+    </section>
+  </main>
 
-  <!-- LINHA DE CIMA -->
-  <nav class="nav-top">
-    <a href="index.html">Calendário</a>
-    <a href="teams.html" class="active">Equipas</a>
-    <a href="f1noticias.html">Notícias</a>
-    <a href="race/resultados.html">Resultados</a>
-  </nav>
+  <button id="back-to-top">Voltar ao topo</button>
 
-  <!-- LINHA DE BAIXO -->
-  <nav class="nav-bottom">
-    <a href="race/campeonatos.html" class="wide">Campeonatos</a>
-    <a href="race/corridas.html" class="wide">Corridas</a>
-  </nav>
-
-</header>
-
-<main class="content">
-
-  <section id="teams-container" class="teams-grid">
-    <!-- cards vêm do JS -->
-  </section>
-
-</main>
-
-<button id="back-to-top">Voltar ao topo</button>
-
-<script src="js/teams.js"></script>
+  <script src="js/teams.js"></script>
 </body>
 </html>
