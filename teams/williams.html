@@ -4,28 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Williams F1 2026</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/teams.css">
-  <link rel="stylesheet" href="../css/equipas.css">
+  <link rel="stylesheet" href="../css/style.css">    <!-- CSS geral -->
+  <link rel="stylesheet" href="../css/teams.css">    <!-- CSS teams -->
+  <link rel="stylesheet" href="../css/equipas.css">  <!-- CSS específico da equipa -->
   <style>
+    /* Cards da Williams */
     #team-cards {
       display: flex;
       flex-direction: column;
       gap: 20px;
       margin: 12px;
     }
-
+    /* Card da equipa ocupa 100% */
     #team-cards .team-card:first-child {
       width: 100%;
     }
-
+    /* Pilotos lado a lado */
     #team-cards .drivers-row {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
       align-items: stretch;
     }
-
     #team-cards .driver-card {
       flex: 1;
       min-width: 200px;
@@ -38,80 +38,72 @@
       gap: 12px;
       align-items: flex-start;
     }
-
+    /* Fotos dos pilotos 20% maiores */
     #team-cards .driver-card img {
       width: 96px;
       height: auto;
       border-radius: 12px;
     }
-
     #team-cards .driver-info {
       display: flex;
       flex-direction: column;
     }
   </style>
 </head>
-
 <body>
 
-<header class="main-header">
-  <nav class="nav-top">
-    <a href="../index.html">Calendário</a>
-    <a href="../teams.html" class="active">Equipas</a>
-    <a href="../f1noticias.html">Notícias</a>
-    <a href="../race/resultados.html">Resultados</a>
-  </nav>
+  <header class="main-header">
+    <nav class="nav-top">
+      <a href="../index.html">Calendário</a>
+      <a href="../teams.html" class="active">Equipas</a>
+      <a href="../f1noticias.html">Notícias</a>
+      <a href="../race/resultados.html">Resultados</a>
+    </nav>
+    <nav class="nav-bottom">
+      <a href="../race/campeonatos.html" class="wide">Campeonatos</a>
+      <a href="../race/corridas.html" class="wide">Corridas</a>
+    </nav>
+  </header>
 
-  <nav class="nav-bottom">
-    <a href="../race/campeonatos.html" class="wide">Campeonatos</a>
-    <a href="../race/corridas.html" class="wide">Corridas</a>
-  </nav>
-</header>
+  <main class="content">
+    <section id="team-cards">
 
-<main class="content">
-
-<section id="team-cards">
-
-  <!-- Card da equipa -->
-  <div class="team-card">
-    <img src="../assets/teams/williams.png" alt="Williams Logo" class="team-logo">
-    <h3>Williams Racing</h3>
-    <p><strong>História:</strong> A Williams Racing é uma das equipas mais históricas da Fórmula 1. Fundada em 1977 por Frank Williams e Patrick Head, conquistou múltiplos campeonatos mundiais e continua a ser um nome icónico do desporto.</p>
-  </div>
-
-  <!-- Pilotos -->
-  <div class="drivers-row">
-
-    <div class="driver-card">
-      <img src="../assets/teams/alexander.jpg" alt="Alexander Albon">
-      <div class="driver-info">
-        <h3>Alexander Albon</h3>
-        <p><strong>Data de Nascimento:</strong> 23/03/1996</p>
-        <p><strong>Idade:</strong> 30 anos</p>
-        <p><strong>Nacionalidade:</strong> Tailândia</p>
+      <!-- Card da equipa -->
+      <div class="team-card">
+        <img src="../assets/teams/williams.png" alt="Williams Logo" class="team-logo">
+        <h3>Williams Racing</h3>
+        <p><strong>História:</strong> A Williams Racing é uma das equipas históricas da Fórmula 1, fundada em 1977 por Frank Williams e Patrick Head. A equipa conquistou múltiplos campeonatos mundiais e continua a ser um dos nomes mais icónicos do desporto.</p>
       </div>
-    </div>
 
-    <div class="driver-card">
-      <img src="../assets/teams/carlos.jpg" alt="Carlos Sainz">
-      <div class="driver-info">
-        <h3>Carlos Sainz</h3>
-        <p><strong>Data de Nascimento:</strong> 01/09/1994</p>
-        <p><strong>Idade:</strong> 31 anos</p>
-        <p><strong>Nacionalidade:</strong> Espanha</p>
+      <!-- Cards dos pilotos lado a lado -->
+      <div class="drivers-row">
+        <div class="driver-card">
+          <img src="../assets/teams/alexander.jpg" alt="Alexander Albon">
+          <div class="driver-info">
+            <h3>Alexander Albon</h3>
+            <p><strong>Data de Nascimento:</strong> 23/03/1996</p>
+            <p><strong>Idade:</strong> 30 anos</p>
+            <p><strong>Nacionalidade:</strong> Tailândia</p>
+          </div>
+        </div>
+        <div class="driver-card">
+          <img src="../assets/teams/carlos.jpg" alt="Carlos Sainz">
+          <div class="driver-info">
+            <h3>Carlos Sainz</h3>
+            <p><strong>Data de Nascimento:</strong> 01/09/1994</p>
+            <p><strong>Idade:</strong> 31 anos</p>
+            <p><strong>Nacionalidade:</strong> Espanha</p>
+          </div>
+        </div>
       </div>
-    </div>
 
-  </div>
+    </section>
+  </main>
 
-</section>
+  <!-- Botão flutuante Voltar ao topo -->
+  <button id="back-to-top">Voltar ao topo</button>
 
-</main>
-
-<button id="back-to-top">Voltar ao topo</button>
-
-<script src="../js/teams.js"></script>
-<script src="../js/equipas.js"></script>
-
+  <script src="../js/teams.js"></script>
+  <script src="../js/equipas.js"></script>
 </body>
 </html>
